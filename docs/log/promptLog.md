@@ -168,3 +168,8 @@ create PR with this issue.
 ```
 將分析完的文件儲存在 /docs/ 下方，並以 AI Agent 的角度轉譯
 ```
+
+### 2025-10-01 22:49:36
+```
+以 @docs/workflow/pm-workflow-rules.md 來檢視 @docs/project-requirements.md 並產出 PRD 文件
+```

@@ -5,6 +5,7 @@ Welcome to the documentation index. Here you will find an overview of the projec
 ## Project Documentation
 
 - [Project Requirements: TodoList combined with Calendar](/docs/project-requirements.md)
+- [Product Requirements Document (PRD): TodoList combined with Calendar](/docs/product-requirements-document.md)
 
 ## Workflow
 
