@@ -6,3 +6,7 @@ Welcome to the documentation index. Here you will find an overview of the projec
 
 - [Basic Rules](/docs/workflow/basic-rules.md)
 - [Co-work Workflow Overview](/docs/workflow/index.md)
+
+## Tools
+
+- [GitHub CLI (gh) Initialization Guide](/docs/gh-init-guide.md)
