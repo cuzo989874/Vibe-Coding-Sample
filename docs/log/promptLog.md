@@ -63,3 +63,13 @@ check-list & notepad 應該作為 git ignore
 ```
 create PR with this issue.
 ```
+
+### 2025-10-01 16:56:23
+```
+幫我寫一份 gh init 的教學文件 放在 /docs/ 他會包含安裝 & auth
+```
+
+### 2025-10-01 16:58:52
+```
+對這個改動開個 PR
+```
