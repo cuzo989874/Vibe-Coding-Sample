@@ -178,3 +178,13 @@ create PR with this issue.
 ```
 以 @docs/workflow/architect-workflow-rules.md 分析 @docs/project-requirements.md  & @docs/product-requirements-document.md 產出分析文件
 ```
+
+### 2025-10-02 10:14:10
+```
+幫我寫一個關於生成 generate 文件的 issue，原則上他就是用來 complete current branch to `origin/main`
+```
+
+### 2025-10-02 10:53:42
+```
+use this build a PR & tag issue#5
+```
