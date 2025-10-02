@@ -42,26 +42,72 @@ Given the requirements for a web application, individual user focus, local stora
 
 ## 3. Technology Stack Proposal
 
-Based on the "Material Design Adherence" (UI1.1) and "Web application" (UX1.1) requirements, a modern JavaScript frontend framework is recommended.
+Based on the "Material Design Adherence" (UI1.1) and "Web application" (UX1.1) requirements, the following technology stack has been selected:
 
-*   **Frontend Framework:** **React.js** (or Vue.js/Angular) is a strong candidate due to its component-based architecture, large ecosystem, and excellent support for Material Design libraries.
-*   **UI Component Library:** **Material-UI (MUI)** for React. This library provides a comprehensive set of React components that implement Material Design, ensuring adherence to the design preference.
-*   **State Management:** For a project of this scope, React's built-in `useState` and `useContext` hooks should suffice. For more complex state, a library like Zustand or Jotai could be considered, but initially, simpler solutions are preferred.
-*   **Routing:** React Router for navigation between different views (e.g., calendar views, task lists).
-*   **Build Tool:** Vite or Create React App (CRA) for project scaffolding and development server. Vite is generally faster and more modern.
+### 3.1 Core Technologies
+
+*   **Frontend Framework:** **React 18+** - Selected for its component-based architecture, extensive ecosystem, and excellent Material Design library support.
+*   **JavaScript Version:** **ES2022+** - Modern JavaScript features without TypeScript complexity.
+*   **Build Tool:** **Vite 4+** - Fast development server, efficient bundling, and modern tooling.
+*   **Package Manager:** **npm**
+
+### 3.2 UI & Styling
+
+*   **UI Component Library:** **Material-UI (MUI) v5** - Comprehensive React components implementing Material Design.
+*   **CSS Architecture:** **CSS Modules** - Scoped styling to prevent conflicts while maintaining flexibility.
+*   **Styling Strategy:** 
+    - Material-UI components for base UI elements (buttons, dialogs, navigation)
+    - CSS Modules for custom components and layout-specific styles
+    - Material-UI theme system for consistent color palette and typography
+
+### 3.3 State Management
+
+*   **Primary:** **React Context API** with `useContext` and `useReducer`
+*   **Local State:** `useState` for component-level state
+*   **Global State:** Context providers for task data, calendar state, and UI preferences
+*   **State Structure:** Centralized task management context with reducer pattern for complex state updates
+
+### 3.4 Development Tools
+
+*   **Routing:** **React Router v6** - Client-side routing for SPA navigation
+*   **Code Quality:** **ESLint** with React plugin for code linting
+*   **Code Formatting:** **Prettier** for consistent code formatting
+*   **Development Server:** Vite dev server with hot module replacement
+
+### 3.5 Node.js Environment
+
+*   **Node.js Version:** **18+ LTS** - Required for Vite and modern React development
+*   **Browser Support:** Modern browsers (Chrome 90+, Firefox 88+, Safari 14+)
+*   **Development Setup:** Local development environment with live reload
 
 ## 4. Data Model
 
 The core entity is a "Task." Based on the requirements, the `Task` data model will be simple:
 
-```typescript
-interface Task {
-  id: string;          // Unique identifier for the task (e.g., UUID)
-  title: string;       // Task title (e.g., "Buy groceries")
-  date: string;        // Due date of the task (e.g., "YYYY-MM-DD")
-  description: string; // Optional detailed description
-  isCompleted: boolean; // Completion status (true/false)
-}
+```javascript
+// Task data structure
+const Task = {
+  id: string,          // Unique identifier (UUID v4)
+  title: string,       // Task title (required)
+  date: string,        // Due date in "YYYY-MM-DD" format
+  description: string, // Optional detailed description (can be empty)
+  isCompleted: boolean, // Completion status (default: false)
+  createdAt: string,  // Creation timestamp "YYYY-MM-DD HH:MM:SS"
+  updatedAt: string   // Last modification timestamp "YYYY-MM-DD HH:MM:SS"
+};
+
+// State management structure
+const AppState = {
+  tasks: Task[],           // Array of all tasks
+  currentView: string,     // "all" | "pending" | "completed"
+  calendarView: string,   // "week" | "month"
+  selectedDate: string,   // Currently selected date for calendar
+  dialogState: {           // Dialog management
+    isOpen: boolean,
+    mode: string,          // "create" | "edit" | "view"
+    taskId: string | null
+  }
+};
 ```
 
 *   **`id`**: Essential for CRUD operations and uniquely identifying tasks.
@@ -72,10 +118,52 @@ interface Task {
 
 ## 5. Data Storage Strategy
 
-*   **Mechanism:** `localStorage` will be used for initial implementation (DS1.1).
-*   **Structure:** Tasks will be stored as a JSON string in `localStorage`. A single key (e.g., `todoCalendarTasks`) could store an array of `Task` objects.
-*   **Operations:** All CRUD operations will involve reading the entire array from `localStorage`, modifying it in memory, and then writing the entire updated array back to `localStorage`.
-*   **Offline Access (DS1.2):** `localStorage` inherently supports offline access as data resides in the browser.
+### 5.1 Storage Mechanism
+
+*   **Primary Storage:** `localStorage` for initial implementation (DS1.1)
+*   **Storage Key:** `todoCalendarApp_data` - Single key storing the entire application state
+*   **Data Format:** JSON string containing the complete `AppState` object
+*   **Size Limit:** `localStorage` has ~5-10MB limit, sufficient for personal task management
+
+### 5.2 Data Operations
+
+*   **Read Operations:** Load entire state from `localStorage` on app initialization
+*   **Write Operations:** Save complete state after each modification (simple but effective for small datasets)
+*   **Error Handling:** Graceful fallback to empty state if `localStorage` is unavailable
+*   **Data Validation:** JSON parsing with error handling and data structure validation
+
+### 5.3 Storage Structure
+
+```javascript
+// localStorage structure
+localStorage.setItem('todoCalendarApp_data', JSON.stringify({
+  tasks: [
+    {
+      id: "uuid-here",
+      title: "Sample Task",
+      date: "2025-01-15",
+      description: "Task description",
+      isCompleted: false,
+      createdAt: "2025-01-15 10:30:00",
+      updatedAt: "2025-01-15 10:30:00"
+    }
+  ],
+  currentView: "all",
+  calendarView: "month",
+  selectedDate: "2025-01-15",
+  dialogState: {
+    isOpen: false,
+    mode: null,
+    taskId: null
+  }
+}));
+```
+
+### 5.4 Offline Access
+
+*   **Inherent Support:** `localStorage` provides offline access as data resides in the browser
+*   **No Network Dependency:** All operations work without internet connection
+*   **Data Persistence:** Data persists across browser sessions and device restarts
 
 ## 6. Non-Functional Requirements Considerations
 
