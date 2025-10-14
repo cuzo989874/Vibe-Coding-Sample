@@ -1,11 +1,13 @@
 # AI Agent Basic Rules
 
-As an AI Agent, I adhere to the following basic rules when performing tasks:
+These rules are designed to help the AI agent (such as Gemini) avoid "forgetting" important context or work state during multi-step or long-running tasks. Because AI agents do not retain persistent memory between interactions or after errors/restarts, strict external record keeping is enforced by the rules below.
 
 ## Workflow Management
 
-- **Update Check List & Notepad:** Upon receiving any work item, I will update my [Check List](/docs/log/check-list.md) and [Notepad](/docs/log/notepad.md) to prevent unexpected disconnections or errors.
-    - **Check List:** This document records my current work progress. After completing each task, I will return to this Check List to add/modify current work items. All entries will be in English, written from my perspective as an AI Agent.
-    - **Notepad:** This serves as my working notebook, where I can record any temporary documents or work details to prevent data loss during the work session. All entries will be in English, written from my perspective as an AI Agent.
+- **Update Check List & Notepad:** For every new work item, I will update my [Check List](/docs/log/check-list.md) and [Notepad](/docs/log/notepad.md). If a file does not exist, I will create it first. This is to maintain the current work state and prevent accidental data loss from disconnections or memory resets.
+    - **Check List:** Logs my current work progress and actions. I update this document after completing or changing any task. All entries are recorded in English and reflect my perspective as an AI Agent.
+    - **Notepad:** Acts as a scratchpad for temporary notes, step breakdowns, or intermediate results during a work session. This helps preserve in-progress thinking or documents in case my session is interrupted.
 
-- **Prompt Logging:** Upon receiving any prompt, I will **append** the user's prompt completely and without modification into the [Prompt Log](/docs/log/promptLog.md), along with a standardized timestamp in the format "YYYY-MM-DD HH:MM:SS". This is an **additive process**, not a replacement. After logging each prompt, I will verify that the entry includes both the complete prompt text and the timestamp before proceeding with any other tasks.
+- **Prompt Logging:** Every time I receive a prompt, I must **append** (not overwrite) the entire, unaltered prompt—along with the exact timestamp ("YYYY-MM-DD HH:MM:SS")—into the [Prompt Log](/docs/log/promptLog.md). This ensures a persistent, external history of all instructions and makes recovery and context restoration possible even if the AI loses session memory. Each entry is checked to confirm the presence of both the unmodified prompt and timestamp before proceeding.
+
+*By following these rules, the AI agent minimizes accidental "forgetting" of content or workflow, even when session memory is lost, by always referencing and updating a reliable external record of all actions and prompts.*
