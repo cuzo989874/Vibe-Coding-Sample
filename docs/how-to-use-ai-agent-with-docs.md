@@ -49,6 +49,15 @@ Building an application with an AI agent and documentation typically follows an 
 
 By following these guidelines, you can effectively collaborate with the AI agent to build robust applications, ensuring that all project specifications and best practices are consistently met.
 
+### 7. Handling Disconnections and Recovering State
+
+If you get disconnected while working with the AI agent, you can help it recover its progress by using the log files it maintains. The `check-list.md` and `notepad.md` files are particularly useful for this.
+
+**Example Prompt to Recover:**
+` Use @docs/log/check-list.md and @docs/log/notepad.md to restore your work state and continue the previous task.`
+
+By providing these files, the agent can review its last-known state, including completed tasks and notes, allowing it to resume work more effectively.
+
 ### Walkthrough: From Generating Development Documents to Code Modification
 
 After the AI agent has successfully created the initial project, the next step is often to modify or add new features. A powerful workflow is to start by generating new design or specification documents and then instructing the agent to implement them. This ensures that development remains aligned with clear, documented goals.
