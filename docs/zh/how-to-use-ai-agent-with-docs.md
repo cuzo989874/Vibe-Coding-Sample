@@ -49,6 +49,15 @@
 
 遵循這些指南，您可以有效地與 AI Agent 協作，建構穩健的應用程式，確保所有專案規格和最佳實踐都得到一致的滿足。
 
+### 7. 處理斷線與恢復狀態
+
+如果您在與 AI Agent 工作時斷線，您可以透過使用它維護的日誌文件來幫助它恢復進度。`check-list.md` 和 `notepad.md` 文件對此特別有用。
+
+**恢復狀態的範例提示：**
+` Use @docs/log/check-list.md and @docs/log/notepad.md to restore your work state and continue the previous task.`
+
+透過提供這些文件，Agent 可以檢視其最後的已知狀態，包括已完成的任務和筆記，從而更有效地繼續工作。
+
 ### 演練：從生成開發文件到程式碼修改
 
 在 AI Agent 成功創建初始專案後，下一步通常是修改或添加新功能。一個強大的工作流程是從生成新的設計或規格文件開始，然後指示 Agent 實作它們。這確保了開發過程與清晰、文件化的目標保持一致。
